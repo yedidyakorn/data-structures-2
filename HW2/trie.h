@@ -12,9 +12,9 @@ public:
 	bool _isEndOfWord;
 	char _val;
 	TrieNode(char, TrieNode*);
-	~TrieNode() { delete _children; }
+	~TrieNode() { delete[] _children; }
 	bool isLeaf();
-
+	void print( string);
 };
 
 class Trie
@@ -26,9 +26,9 @@ public:
 	bool del(string str);
 	bool search(string str);
 	int printAutoSuggestions(string str);
-	int print(TrieNode*, string);
+
 	Trie() { _root = new TrieNode(' ', NULL); }
-	~Trie() { delete _root; }
+	~Trie() { _root=NULL; }
 
 
 };

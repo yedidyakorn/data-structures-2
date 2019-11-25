@@ -45,7 +45,6 @@ void main()
 			else
 				cout << "does not exist\n";
 			break;
-
 		case '4':
 			cout << "Enter a prefix to complete " << endl;
 			cin >> wrd;
@@ -57,5 +56,4 @@ void main()
 		default: cout << "ERROR " << endl;  break;
 		}//switch
 	} while (ch != '5');
-
 }
