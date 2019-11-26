@@ -1,13 +1,13 @@
-#include "Trie.h"
+#include "trie.h"
 #include <string>
 
-void Trie::insert(string str)
+void Trie::insert(string str)//inserts a word to trie
 {
 	int index;
 	TrieNode* temp = _root;
 	for (int i = 0; i < str.length(); i++)
 	{
-		index = str[i] - 'a';
+		index = str[i] - 'a';		//direct acsess
 		if (!temp->_children[index])
 			temp->_children[index] = new TrieNode(str[i], temp);
 		temp = temp->_children[index];
@@ -15,7 +15,7 @@ void Trie::insert(string str)
 	// mark last node as leaf 
 	temp->_isEndOfWord = true;
 }
-bool Trie::search(string str)
+bool Trie::search(string str)//search if word is in trie
 {
 
 	TrieNode* temp = _root;
@@ -32,9 +32,9 @@ bool Trie::search(string str)
 }
 
 
-bool Trie::del(string str)
+bool Trie::del(string str)//deletes word from trie
 {
-	if (!search(str))
+	if (!search(str))		//checks if the word is in the trie
 		return false;
 	TrieNode* temp = _root;
 	int index;
@@ -43,24 +43,23 @@ bool Trie::del(string str)
 		index = str[i] - 'a';
 		temp = temp->_children[index];
 	}
-	if (!temp->isLeaf())
+	if (!temp->isLeaf())		//checks if the letters are used for a difrint word
 	{
 		temp->_isEndOfWord = false;
 		return true;
 	}
-	for (int i = str.length()-1; i >= 0; i--)
+	for (int i = str.length()-1; i >= 0; i--)		//deletes the unuesed letters
 	{
 		index = str[i] - 'a';
 		temp = temp->_parent;
+		temp->_children[index]->~TrieNode();
 		temp->_children[index] = NULL;
-		delete temp->_children[index];
-
 		if (!temp->isLeaf()||temp->_isEndOfWord==true||temp==_root)
 			return true;
 	}
 }
 
-bool TrieNode::isLeaf()
+bool TrieNode::isLeaf()		//checkes if a letter is in the midlle of any word
 {
 	for (int i = 0; i < 26; i++)
 		if (_children[i] != NULL)
@@ -68,7 +67,7 @@ bool TrieNode::isLeaf()
 	return true;
 }
 
-int Trie::printAutoSuggestions(string str)//sends a pointer to
+int Trie::printAutoSuggestions(string str)	//sends a pointer of the sub tree to the print functaion
 {
 	TrieNode* temp = _root;
 	int index;
@@ -83,30 +82,24 @@ int Trie::printAutoSuggestions(string str)//sends a pointer to
 	return 1;
 }
 
-void TrieNode::print( string str)
+void TrieNode::print( string str)		//prints all words that start with a prefix
 {
-	string temp=str;
-	if (this->_isEndOfWord == true)
+	if (this->_isEndOfWord == true)		//checks if a word ends at a letter
 		cout << str << endl;
-	if (this->isLeaf())
-	{
-		return;
-		
-	}
-	
+	if (this->isLeaf())			//Stop conditions of Recursion
+		return;			
 	for (int i = 0; i < 26; i++)
 	{
 		if (this->_children[i] != NULL)
 		{
-			temp += this->_children[i]->_val;
-			this->_children[i]->print(temp);
+			this->_children[i]->print(str + this->_children[i]->_val);
 		}
 	}
 	
 }
 
 
-TrieNode::TrieNode(char val, TrieNode* parent)
+TrieNode::TrieNode(char val, TrieNode* parent)		//ctor
 {
 	for (int i = 0; i < 26; i++)
 	{
