@@ -1,3 +1,11 @@
+/*
+File: trie.cpp
+Description: classes- trie, trieNode
+Course: Data structres
+Exercise 2
+Author: Yedidya Korn-203304084 & David Abelo-208764340
+*/
+
 #include "trie.h"
 #include <string>
 

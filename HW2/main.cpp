@@ -1,3 +1,11 @@
+/*
+File: main.cpp
+Description: trie program
+Course: Data structres
+Exercise 2
+Author: Yedidya Korn-203304084 & David Abelo-208764340
+*/
+
 #include <iostream>
 #include <list>
 #include <string>
